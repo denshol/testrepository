@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.semi.member.model.service.MemberService;
 import com.semi.member.model.vo.Member;
-import com.semi.member.model.vo.Payment;
+import com.semi.order.model.vo.Payment;
 
 /**
  * Servlet implementation class ShoppingListController

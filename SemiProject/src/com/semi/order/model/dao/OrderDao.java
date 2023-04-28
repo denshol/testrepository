@@ -99,7 +99,7 @@ public class OrderDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, p.getOrderNo());
-			pstmt.setInt(2, p.getMemberNo());
+			pstmt.setString(2, p.getMemberNo());
 			pstmt.setString(3, p.getProductNo());
 			pstmt.setInt(4, p.getPayment());
 			pstmt.setString(5, p.getOrderRequest());
