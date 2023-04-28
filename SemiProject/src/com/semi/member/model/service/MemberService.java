@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import com.semi.common.JDBCTemplate;
 import com.semi.common.vo.PageInfo;
 import com.semi.member.model.dao.MemberDao;
+import com.semi.member.model.vo.Coupon;
 import com.semi.member.model.vo.Member;
 import com.semi.member.model.vo.Payment;
 
@@ -76,17 +77,6 @@ public class MemberService {
 		
 		JDBCTemplate.close(conn);
 		return pwdM;
-	}
-	
-	public ArrayList<Payment> selectShoppingList() {
-		Connection conn = JDBCTemplate.getConnection();
-		
-		ArrayList<Payment> list = new MemberDao().selectShoppingList(conn);
-		
-		JDBCTemplate.close(conn);
-
-		
-		return list;
 	}
 	
 	//총 회원 수
@@ -184,6 +174,75 @@ public class MemberService {
 		
 		return result;
 	}
+	
+	//쿠폰 조회
+	public ArrayList<Coupon> selectCoupon(int memNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ArrayList<Coupon> clist = new MemberDao().selectCoupon(conn, memNo);
+		
+		JDBCTemplate.close(conn);
+		
+		return clist;
+	}
+	
+	//주문 조회
+	public ArrayList<Payment> selectShoppingList(int memNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ArrayList<Payment> list = new MemberDao().selectShoppingList(conn,memNo);
+		
+		JDBCTemplate.close(conn);
 
+		
+		return list;
+	}
+	
+	//주문 상세 조회 모달
+	public ArrayList<Payment> selectModal(int orderNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ArrayList<Payment> plist = new MemberDao().selectModal(conn,orderNo);
 
+		JDBCTemplate.close(conn);
+		
+		return plist;
+	}
+	
+	//회원 탈퇴
+	public int deleteMember(String loginId, String loginPwd) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = new MemberDao().deleteMember(conn, loginId, loginPwd);
+		
+		if(result>0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		return result;
+	}
+	
+	//회원 정보 수정
+	public Member updateMember(Member m) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = new MemberDao().updateMember(conn,m);
+		
+		Member memUpdate = null;
+		
+		if(result>0) {
+			JDBCTemplate.commit(conn);
+			memUpdate = new MemberDao().selectMember(conn,m.getMemberId());
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		JDBCTemplate.close(conn);
+		
+		return memUpdate;
+	}
 }
