@@ -14,6 +14,7 @@ import java.util.Properties;
 
 import com.semi.common.JDBCTemplate;
 import com.semi.common.vo.PageInfo;
+import com.semi.member.model.vo.Coupon;
 import com.semi.member.model.vo.Member;
 import com.semi.member.model.vo.Payment;
 
@@ -220,37 +221,6 @@ public class MemberDao {
 		return srcPwdM;
 	}
 
-
-	public ArrayList<Payment> selectShoppingList(Connection conn) {
-		ArrayList<Payment> list = new ArrayList<>();
-		ResultSet rset = null;
-		Statement stmt = null;
-		
-		String sql = prop.getProperty("selectShoppingList");
-		
-		try {
-			stmt = conn.createStatement();
-			rset = stmt.executeQuery(sql);
-			
-			while(rset.next()) {
-				list.add(new Payment(rset.getInt("ORDER_NO"),
-									 rset.getDate("CREATED_AT"),
-									 rset.getString("MEMBER_NAME"),
-									 rset.getString("PRODUCT_NAME")));
-			}
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}finally {
-			JDBCTemplate.close(rset);
-			JDBCTemplate.close(stmt);
-		}
-		
-		
-		return list;
-	}
-	
-	
 	public int selMemberAdminCount(Connection conn) {
 		
 		int listCount = 0;
@@ -587,4 +557,211 @@ public class MemberDao {
 		return result;
 	}
 	
+	//쿠폰 조회
+	public ArrayList<Coupon> selectCoupon(Connection conn, int memNo) {
+		
+		ArrayList<Coupon> clist = new ArrayList<>();
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("selectCoupon");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, memNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				clist.add(new Coupon(rset.getInt("COUPON_NO")
+										,rset.getString("MEMBER_NO")
+										,rset.getString("COUPON_NAME")
+										,rset.getInt("COUPON_DC")
+										,rset.getDate("COUPON_PERIOD")
+										,rset.getDate("COUPON_SDATE")
+										,rset.getString("STATUS")));
+			}
+					
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+			
+		return clist;
+	}
+	
+	//주문 조회
+	public ArrayList<Payment> selectShoppingList(Connection conn, int memNo) {
+		ArrayList<Payment> list = new ArrayList<>();
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("selectShoppingList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, memNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Payment(rset.getInt("ORDER_NO"),
+									 rset.getString("PRODUCT_NAME"),
+									 rset.getString("DEPOSIT_NAME"),
+									 rset.getInt("PAYMENT")));
+			}
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		
+		return list;
+	}
+	
+	//주문 상세 조회 모달
+	public ArrayList<Payment> selectModal(Connection conn, int orderNo) {
+		ArrayList<Payment> plist = new ArrayList<>();
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("selectModal");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, orderNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				plist.add( new Payment(rset.getInt("PAYMENT_NUMBER"),
+										rset.getString("MEMBER_NAME"),
+										rset.getDate("CREATED_AT"),
+										rset.getInt("PAYMENT"),
+										rset.getString("ORDER_REQUEST"),
+										rset.getString("BANK_NAME"),
+										rset.getString("DEPOSIT_NAME"),
+										rset.getString("ADDRESS_NAME"),
+										rset.getString("POST"),
+										rset.getString("ROAD_ADDRESS"),
+										rset.getString("DETAIL_ADDRESS"),
+										rset.getString("STATE"),
+										rset.getInt("DELIVERY_COST"),
+										rset.getInt("ORDER_NO"),
+										rset.getString("PRODUCT_NAME"),
+										rset.getInt("QUANTITY")
+										));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return plist;
+	}
+	
+	//회원 탈퇴
+	public int deleteMember(Connection conn, String loginId, String loginPwd) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("deleteMember");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, loginId);
+			pstmt.setString(2, loginPwd);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
+	//회원 정보 수정
+	public int updateMember(Connection conn, Member m) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("updateMember");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, m.getMemberPwd());
+			pstmt.setString(2, m.getPhone());
+			pstmt.setString(3, m.getEmail());
+			pstmt.setString(4, m.getMemberBirth());
+			pstmt.setString(5, m.getMemberId());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	//회원 정보 수정 후 재조회
+	public Member selectMember(Connection conn, String memberId) {
+		
+		Member m = null;
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("selectMember");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, memberId);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				m = new Member ( rset.getInt("MEMBER_NO")
+								,rset.getInt("GRADE")
+								,rset.getInt("MEMBER_ROLE")
+								,rset.getString("MEMBER_ID")
+								,rset.getString("MEMBER_PWD")
+								,rset.getString("MEMBER_NAME")
+								,rset.getString("MEMBER_BIRTH")
+								,rset.getString("GENDER")
+								,rset.getString("PHONE")
+								,rset.getString("EMAIL")
+								,rset.getString("ADDRESS")
+								,rset.getInt("MEMBER_POINT")
+								,rset.getDate("ENROLL_DATE")
+								,rset.getDate("MODIFY_DATE")
+								,rset.getInt("ATTENDANCE")
+								,rset.getString("STATUS"));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return m;
+	}
 }
