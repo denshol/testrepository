@@ -233,8 +233,7 @@
 		      /* background-color: blue; */
 		      text-align: center;
 		      position: relative;
-		      left: 500px;
-		      top: 23px;
+		      top: 28px;
 		    }
 		    
         /*체크박스-----------------------------------------------------------*/
@@ -369,12 +368,8 @@
                 
             	<%if(list.isEmpty()) {%>
             		<div id="none_div">
-			            <table id="none_table">
-			              <td>
-			                <td id="none_td">도서 목록이 존재하지 않습니다.</td>
-			              </td>
-			            </table>
-			          </div>
+			        	<div id="none_td">도서 목록이 존재하지 않습니다.</div>
+			        </div>
             	<%} else {%>
             	
             	<%for(Product p : list) {%>
@@ -396,6 +391,8 @@
                     <tr>
                         <td style="font-size: 12px; font-weight: 300; position: relative; top: 25px;"><%=p.getAuthor() %> ⊙ <%=p.getProductPublisher() %> ⊙ <%=p.getCreateDate() %></td>
                     </tr>
+                        <!--  
+                        -->
                     <tr>
                         <td id="tr_3">
                         	<div id="tr_3_1"><%=p.getProductSalesRate() %>%</div>
@@ -457,13 +454,16 @@
         	//디테일 페이지 이동
             $(function(){
             	$("#book_2>table>tbody>#num").click(function(){
-            		//console.log(this);
+            		console.log(this);
             		var pno = $(this).children().eq(0).children("input[type=hidden]").val();
-            		//console.log(pno);
+            		console.log(pno);
             		location.href="<%=contextPath%>/book.de?pno="+pno;
             	});
+            	/* $("#book_2").click(function(){
+            		console.log("ddd");
+            	}); */
             });
-
+          </script>
         
        	<%@include file = "../common/footer.jsp" %>
 </body>

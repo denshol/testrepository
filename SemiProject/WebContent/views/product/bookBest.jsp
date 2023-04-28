@@ -233,8 +233,7 @@
 		      /* background-color: blue; */
 		      text-align: center;
 		      position: relative;
-		      left: 500px;
-		      top: 23px;
+		      top: 28px;
 		    }
     
         /*체크박스-----------------------------------------------------------*/
@@ -359,12 +358,8 @@
                 
             	<%if(list.isEmpty()) {%>
             		<div id="none_div">
-			            <table id="none_table">
-			              <td>
-			                <td id="none_td">도서 목록이 존재하지 않습니다.</td>
-			              </td>
-			            </table>
-			          </div>
+			        	<div id="none_td">도서 목록이 존재하지 않습니다.</div>
+			        </div>
             	<%} else {%>
             	
             	<%for(Product p : list) {%>
@@ -376,7 +371,7 @@
             </div>
             <div id="book_2">
            
-                <table >
+                <table id="book_2_1">
                     <tr id="num">
                         <td rowspan="4" style="width: 150px; height: 250px;"><img src="<%=contextPath + p.getTitleImg() %>" alt="" width="135px" height="200px" id="imgthumb">
                         <input type="hidden" value="<%=p.getProductNo()%>">                       
