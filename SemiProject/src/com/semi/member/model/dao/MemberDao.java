@@ -16,7 +16,7 @@ import com.semi.common.JDBCTemplate;
 import com.semi.common.vo.PageInfo;
 import com.semi.member.model.vo.Coupon;
 import com.semi.member.model.vo.Member;
-import com.semi.member.model.vo.Payment;
+import com.semi.order.model.vo.Payment;
 
 public class MemberDao {
 	

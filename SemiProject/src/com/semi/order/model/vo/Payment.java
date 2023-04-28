@@ -5,7 +5,7 @@ import java.sql.Date;
 public class Payment {
 	private int paymentNumber;		//PAYMENT_NUMBER NUMBER 결제번호
 	private int orderNo;			//ORDER_NO NUMBER 주문번호
-	private int memberNo;			//MEMBER_NO NUMBER 회원번호
+	private String memberNo;			//MEMBER_NO NUMBER 회원번호
 	private String productNo;		//PRODUCT_NO NUMBER 상품번호
 	private Date createdAt;			//CREATED_AT DATE 결제일시
 	private int payment;			//PAYMENT NUMBER 결제금액
@@ -26,7 +26,36 @@ public class Payment {
 		super();
 	}
 
-	public Payment(int orderNo, int memberNo, String productNo, int payment, String orderRequest, String bankName,
+	public Payment(int paymentNumber, String memberNo, Date createdAt, int payment, String orderRequest, String bankName,
+			String depositName, String addressName, String post, String roadAddress, String detailAddress, String state,
+			int deliveryCost, int orderNo, String productNo, int usePoint) {
+		this.paymentNumber = paymentNumber;
+		this.memberNo = memberNo;
+		this.createdAt = createdAt;
+		this.payment = payment;
+		this.orderRequest = orderRequest;
+		this.bankName = bankName;
+		this.depositName = depositName;
+		this.addressName = addressName;
+		this.post = post;
+		this.roadAddress = roadAddress;
+		this.detailAddress = detailAddress;
+		this.state = state;
+		this.deliveryCost = deliveryCost;
+		this.orderNo = orderNo;
+		this.productNo = productNo;
+		this.usePoint = usePoint;
+	}
+	
+	public Payment(int orderNo, String productNo, String depositName, int payment) {
+		super();
+		this.orderNo = orderNo;
+		this.productNo = productNo;
+		this.depositName = depositName;
+		this.payment = payment;
+	}
+	
+	public Payment(int orderNo, String memberNo, String productNo, int payment, String orderRequest, String bankName,
 			String depositName, int usePoint, String addressName, String phone, String email, String post,
 			String roadAddress, String detailAddress, int deliveryCost) {
 		super();
@@ -47,7 +76,7 @@ public class Payment {
 		this.deliveryCost = deliveryCost;
 	}
 
-	public Payment(int paymentNumber, int orderNo, int memberNo, String productNo, Date createdAt, int payment,
+	public Payment(int paymentNumber, int orderNo, String memberNo, String productNo, Date createdAt, int payment,
 			String orderRequest, String bankName, String depositName, int usePoint, String addressName, String phone,
 			String email, String post, String roadAddress, String detailAddress, String state, int deliveryCost) {
 		super();
@@ -87,11 +116,11 @@ public class Payment {
 		this.orderNo = orderNo;
 	}
 
-	public int getMemberNo() {
+	public String getMemberNo() {
 		return memberNo;
 	}
 
-	public void setMemberNo(int memberNo) {
+	public void setMemberNo(String memberNo) {
 		this.memberNo = memberNo;
 	}
 
