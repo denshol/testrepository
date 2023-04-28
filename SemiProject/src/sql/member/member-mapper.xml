@@ -74,171 +74,171 @@
 		WHERE M.STATUS = 'Y'
 		ORDER BY CREATED_AT
 	</entry>
-	<!-- 총 회원 수 -->
-	<entry key="selMemberAdminCount">
-		SELECT COUNT(*) COUNT
-		FROM MEMBER
-		WHERE STATUS = 'Y'
-	</entry>	
 	
-	<!-- 아이디 검색 수 -->
-	<entry key="selIdAdminCount">
-		SELECT COUNT(*) COUNT
-		FROM MEMBER
-		WHERE MEMBER_ID = ?
-	</entry>
-	
-	<!-- 이름 검색 수 -->
-	<entry key="selNameAdminCount">
-		SELECT COUNT(*) COUNT
-		FROM MEMBER
-		WHERE MEMBER_NAME = ?
-	</entry>
-	
-	<!-- 생년월일 검색 수 -->
-	<entry key="selBirthAdminCount">
-		SELECT COUNT(*) COUNT
-		FROM MEMBER
-		WHERE MEMBER_BIRTH LIKE '%'||?||'%'
-	</entry>
-	
-	<!-- 번호 검색 수 -->
-	<entry key="selPhoneAdminCount">
-		SELECT COUNT(*) COUNT
-		FROM MEMBER
-		WHERE PHONE LIKE '%'||?||'%'
-	</entry>
-	
-	<!-- 이메일 검색 수 -->
-	<entry key="selEmailAdminCount">
-		SELECT COUNT(*) COUNT
-		FROM MEMBER
-		WHERE EMAIL LIKE '%'||?||'%'
-	</entry>
-	
-	<!-- 주소 검색 수 -->
-	<entry key="selAddressAdminCount">
-		SELECT COUNT(*) COUNT
-		FROM MEMBER
-		WHERE ADDRESS LIKE '%'||?||'%'
-	</entry>
-	
-	<!-- 회원 등급 검색 수 -->
-	<entry key="selGradeAdminCount">
-		SELECT COUNT(*) COUNT
-		FROM MEMBER
-		WHERE GRADE = ?
-	</entry>
-	
-	<!-- 회원관리 조회 -->
-	<entry key="selectAdminMember">
-		SELECT *
-		FROM(SELECT ROWNUM RNUM, A.*
-			 FROM(SELECT *
-			 	  FROM MEMBER
-			 	  ORDER BY MEMBER_NO DESC) A)
-		WHERE RNUM BETWEEN ? AND ?
-	</entry>
-	
-	<!-- 회원 상세조회 -->
-	<entry key="detailAdminMember">
-		SELECT *
-		FROM MEMBER
-		WHERE MEMBER_NO = ?
-		ORDER BY ENROLL_DATE DESC
-	</entry>
-	
-	<!-- 검색 카테고리 -->
-	<entry key="searchIdAdmin">
+<!-- 총 회원 수 -->
+<entry key="selMemberAdminCount">
+	SELECT COUNT(*) COUNT
+	FROM MEMBER
+</entry>	
+
+<!-- 아이디 검색 수 -->
+<entry key="selIdAdminCount">
+	SELECT COUNT(*) COUNT
+	FROM MEMBER
+	WHERE MEMBER_ID = ?
+</entry>
+
+<!-- 이름 검색 수 -->
+<entry key="selNameAdminCount">
+	SELECT COUNT(*) COUNT
+	FROM MEMBER
+	WHERE MEMBER_NAME = ?
+</entry>
+
+<!-- 생년월일 검색 수 -->
+<entry key="selBirthAdminCount">
+	SELECT COUNT(*) COUNT
+	FROM MEMBER
+	WHERE MEMBER_BIRTH LIKE '%'||?||'%'
+</entry>
+
+<!-- 번호 검색 수 -->
+<entry key="selPhoneAdminCount">
+	SELECT COUNT(*) COUNT
+	FROM MEMBER
+	WHERE PHONE LIKE '%'||?||'%'
+</entry>
+
+<!-- 이메일 검색 수 -->
+<entry key="selEmailAdminCount">
+	SELECT COUNT(*) COUNT
+	FROM MEMBER
+	WHERE EMAIL LIKE '%'||?||'%'
+</entry>
+
+<!-- 주소 검색 수 -->
+<entry key="selAddressAdminCount">
+	SELECT COUNT(*) COUNT
+	FROM MEMBER
+	WHERE ADDRESS LIKE '%'||?||'%'
+</entry>
+
+<!-- 회원 등급 검색 수 -->
+<entry key="selGradeAdminCount">
+	SELECT COUNT(*) COUNT
+	FROM MEMBER
+	WHERE GRADE = ?
+</entry>
+
+<!-- 회원관리 조회 -->
+<entry key="selectAdminMember">
 	SELECT *
 	FROM(SELECT ROWNUM RNUM, A.*
 		 FROM(SELECT *
-			  FROM MEMBER
-			  WHERE MEMBER_ID = ?
-			  ORDER BY ENROLL_DATE DESC) A)
+		 	  FROM MEMBER
+		 	  ORDER BY MEMBER_NO DESC) A)
 	WHERE RNUM BETWEEN ? AND ?
-	</entry>
-	
-	<entry key="searchNameAdmin">
+</entry>
+
+<!-- 회원 상세조회 -->
+<entry key="detailAdminMember">
 	SELECT *
-	FROM(SELECT ROWNUM RNUM, A.*
-		 FROM(SELECT *
-			  FROM MEMBER
-			  WHERE MEMBER_NAME = ?
-			  ORDER BY ENROLL_DATE DESC) A)
-	WHERE RNUM BETWEEN ? AND ?
-	</entry>
-	
-	<entry key="searchBirthAdmin">
-	SELECT *
-	FROM(SELECT ROWNUM RNUM, A.*
-		 FROM(SELECT *
-			  FROM MEMBER
-			  WHERE MEMBER_BIRTH LIKE'%'||?||'%'
-			  ORDER BY ENROLL_DATE DESC) A)
-	WHERE RNUM BETWEEN ? AND ?	
-	</entry>
-	
-	<entry key="searchPhoneAdmin">
-	SELECT *
-	FROM(SELECT ROWNUM RNUM, A.*
-		 FROM(SELECT *
-			  FROM MEMBER
-			  WHERE PHONE LIKE'%'||?||'%'
-			  ORDER BY ENROLL_DATE DESC) A)
-	WHERE RNUM BETWEEN ? AND ?
-	</entry>
-	<entry key="searchEmailAdmin">
-	SELECT *
-	FROM(SELECT ROWNUM RNUM, A.*
-		 FROM(SELECT *
-			  FROM MEMBER
-			  WHERE EMAIL LIKE'%'||?||'%'
-			  ORDER BY ENROLL_DATE DESC) A)
-	WHERE RNUM BETWEEN ? AND ?
-	</entry>
-	
-	<entry key="searchAddressAdmin">
-	SELECT *
-	FROM(SELECT ROWNUM RNUM, A.*
-		 FROM(SELECT *
-			  FROM MEMBER
-			  WHERE ADDRESS LIKE'%'||?||'%'
-			  ORDER BY ENROLL_DATE DESC) A)
-	WHERE RNUM BETWEEN ? AND ?
-	</entry>
-	
-	<entry key="searchGradeAdmin">
-	SELECT *
-	FROM(SELECT ROWNUM RNUM, A.*
-		 FROM(SELECT *
-			  FROM MEMBER
-			  WHERE GRADE = ?
-			  ORDER BY ENROLL_DATE DESC) A)
-	WHERE RNUM BETWEEN ? AND ?
-	</entry>
-	
-	<!-- 회원 수정 -->
-	<entry key="updateMemberAdmin">
-		UPDATE MEMBER
-		SET MEMBER_ID = ?
-		   ,MEMBER_PWD = ?
-		   ,MEMBER_NAME = ?
-		   ,MEMBER_BIRTH = ?
-		   ,GENDER = ?
-		   ,PHONE = ?
-		   ,EMAIL = ?
-		   ,ADDRESS = ?
-		   ,MODIFY_DATE = SYSDATE
-		WHERE MEMBER_NO = ?
-	</entry>
-	
-	<!-- 회원 삭제 -->
-	<entry key="deleteMemberAdmin">
-		UPDATE MEMBER
-		SET STATUS = 'N'
-		WHERE MEMBER_NO = ?
-		AND STATUS = 'Y'
-	</entry>
-	
+	FROM MEMBER
+	WHERE MEMBER_NO = ?
+	ORDER BY MEMBER_NO DESC
+</entry>
+
+<!-- 검색 카테고리 -->
+<entry key="searchIdAdmin">
+SELECT *
+FROM(SELECT ROWNUM RNUM, A.*
+	 FROM(SELECT *
+		  FROM MEMBER
+		  WHERE MEMBER_ID = ?
+		  ORDER BY MEMBER_NO DESC) A)
+WHERE RNUM BETWEEN ? AND ?
+</entry>
+
+<entry key="searchNameAdmin">
+SELECT *
+FROM(SELECT ROWNUM RNUM, A.*
+	 FROM(SELECT *
+		  FROM MEMBER
+		  WHERE MEMBER_NAME LIKE'%'||?||'%'
+		  ORDER BY MEMBER_NO DESC) A)
+WHERE RNUM BETWEEN ? AND ?
+</entry>
+
+<entry key="searchBirthAdmin">
+SELECT *
+FROM(SELECT ROWNUM RNUM, A.*
+	 FROM(SELECT *
+		  FROM MEMBER
+		  WHERE MEMBER_BIRTH LIKE'%'||?||'%'
+		  ORDER BY MEMBER_NO DESC) A)
+WHERE RNUM BETWEEN ? AND ?	
+</entry>
+
+<entry key="searchPhoneAdmin">
+SELECT *
+FROM(SELECT ROWNUM RNUM, A.*
+	 FROM(SELECT *
+		  FROM MEMBER
+		  WHERE PHONE LIKE'%'||?||'%'
+		  ORDER BY MEMBER_NO DESC) A)
+WHERE RNUM BETWEEN ? AND ?
+</entry>
+<entry key="searchEmailAdmin">
+SELECT *
+FROM(SELECT ROWNUM RNUM, A.*
+	 FROM(SELECT *
+		  FROM MEMBER
+		  WHERE EMAIL LIKE'%'||?||'%'
+		  ORDER BY MEMBER_NO DESC) A)
+WHERE RNUM BETWEEN ? AND ?
+</entry>
+
+<entry key="searchAddressAdmin">
+SELECT *
+FROM(SELECT ROWNUM RNUM, A.*
+	 FROM(SELECT *
+		  FROM MEMBER
+		  WHERE ADDRESS LIKE'%'||?||'%'
+		  ORDER BY MEMBER_NO DESC) A)
+WHERE RNUM BETWEEN ? AND ?
+</entry>
+
+<entry key="searchGradeAdmin">
+SELECT *
+FROM(SELECT ROWNUM RNUM, A.*
+	 FROM(SELECT *
+		  FROM MEMBER
+		  WHERE GRADE = ?
+		  ORDER BY MEMBER_NO DESC) A)
+WHERE RNUM BETWEEN ? AND ?
+</entry>
+
+<!-- 회원 수정 -->
+<entry key="updateMemberAdmin">
+	UPDATE MEMBER
+	SET MEMBER_ID = ?
+	   ,MEMBER_PWD = ?
+	   ,MEMBER_NAME = ?
+	   ,MEMBER_BIRTH = ?
+	   ,GENDER = ?
+	   ,PHONE = ?
+	   ,EMAIL = ?
+	   ,ADDRESS = ?
+	   ,MODIFY_DATE = SYSDATE
+	WHERE MEMBER_NO = ?
+</entry>
+
+<!-- 회원 삭제 -->
+<entry key="deleteMemberAdmin">
+	UPDATE MEMBER
+	SET STATUS = 'N'
+	WHERE MEMBER_NO = ?
+	AND STATUS = 'Y'
+</entry>
+
 </properties>

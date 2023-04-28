@@ -246,10 +246,12 @@ public class MemberDao {
 			JDBCTemplate.close(stmt);
 		}
 		
+		
 		return list;
 	}
 	
-public int selMemberAdminCount(Connection conn) {
+	
+	public int selMemberAdminCount(Connection conn) {
 		
 		int listCount = 0;
 		ResultSet rset = null;
@@ -529,6 +531,8 @@ public int selMemberAdminCount(Connection conn) {
 		
 		return m;
 	}
+	
+	
 
 	//회원 수정
 	public int updateMemberAdmin(Connection conn, Member m) {
@@ -582,5 +586,5 @@ public int selMemberAdminCount(Connection conn) {
 		
 		return result;
 	}
-
+	
 }

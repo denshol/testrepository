@@ -194,15 +194,17 @@
 		           ORDER BY CREATE_DATE DESC)A)
 		WHERE RNUM BETWEEN 1 AND 4
 	</entry>
-	<entry key="selectAdminProduct">
+	
+<entry key="selectAdminProduct">
 	SELECT *
 	FROM PRODUCT
 	ORDER BY PRODUCT_NO DESC
-	</entry>
-	
-	<entry key="detailAdminProduct">
-		SELECT *
-		FROM PRODUCT
-		WHERE PRODUCT_NO = ?
-	</entry>
+</entry>
+
+<entry key="detailAdminProduct">
+	SELECT *
+	FROM PRODUCT
+	WHERE PRODUCT_NO = ?
+</entry>
+
 </properties>

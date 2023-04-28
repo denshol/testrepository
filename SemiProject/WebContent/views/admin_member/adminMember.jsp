@@ -2,11 +2,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.ArrayList,com.semi.member.model.vo.Member,com.semi.common.vo.PageInfo"%>
 <%
-	ArrayList<Member> list = (ArrayList<Member>)request.getAttribute("list"); //일반 조회 시
-	ArrayList<Member> searchList = (ArrayList<Member>)request.getAttribute("searchList"); //검색기능 조회 시
 	Member mno = (Member)request.getAttribute("Member");
+	ArrayList<Member> list = (ArrayList<Member>)request.getAttribute("list"); //일반 조회 시
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
-	PageInfo searchPi = (PageInfo)request.getAttribute("searchPi");
+	int bar = (int)request.getAttribute("bar");
+	int barNum = (int)request.getAttribute("barNum");
+	String barSearch = (String)request.getAttribute("barSearch");
 %>
 <!DOCTYPE html>
 <html>
@@ -32,7 +33,8 @@
 		</div>
 		<div class="middle">
 			<div id="mid_search">
-				<form action="<%=contextPath%>/searchMember.admin?currentPage=1" method="post" id="searchMember-Form" onsubmit="return blankSearch()">
+				<form action="<%=contextPath%>/searchMember.admin" method="get" id="searchMember-Form" onsubmit="return blankSearch()">
+					<input type="hidden" name="currentPage" value="1">
 					<select name="ms_select" id="ms_select">
 						<option value="1">아이디</option>
 						<option value="2">이름</option>
@@ -44,8 +46,8 @@
 					</select>
 						<input type="search" name="memberSearch" id="memberSearch">
 						<button type="submit" id="ms_img"></button>
+				</form>
 				<script>
-					
 					//검색 빈값 프론트에서 처리
 					function blankSearch(){
 						if($("#memberSearch").val().length == 0) {
@@ -54,7 +56,6 @@
 						}
 					};
 				</script>
-				</form>
 			</div>
 		</div>
 		<div class="middle_left">
@@ -89,7 +90,6 @@
 					</thead>
 					<tbody>
 							<%for(Member m : list){ %>
-							
 							
 								<tr>
 									<td><%=m.getMemberNo() %></td>
@@ -147,7 +147,7 @@
 			</div>
 			
 			<!-- 일반 조회 시 페이징 바 -->
-			<%if(!(list.isEmpty())) {%>
+			<%if(bar == 0) {%>
 				<div align="center" class="paging-area">
 				<!-- 이전 버튼 -->
 				<%if(pi.getCurrentPage() != 1) {%>
@@ -173,22 +173,22 @@
 			<%}else{ %>
 				<div align="center" class="paging-area">
 				<!-- 이전 버튼 -->
-				<%if(searchPi.getCurrentPage() != 1) {%>
-					<button onclick="location.href='<%=contextPath%>/member.admin?currentPage=<%=searchPi.getCurrentPage()-1%>'">&lt;</button>
+				<%if(pi.getCurrentPage() != 1) {%>
+					<button onclick="location.href='<%=contextPath%>/searchMember.admin?currentPage=<%=pi.getCurrentPage()-1%>&barNum=<%=barNum%>&barSearch=<%=barSearch%>'">&lt;</button>
 				<%}%>
 				
 				<!-- 페이징바 -->
-				<%for(int i=searchPi.getStartPage(); i<=searchPi.getEndPage(); i++){%>
-					<%if(i != searchPi.getCurrentPage()) {%>
-						<button onclick="location.href='<%=contextPath%>/member.admin?currentPage=<%=i%>'"><%=i%></button>
+				<%for(int i=pi.getStartPage(); i<=pi.getEndPage(); i++){%>
+					<%if(i != pi.getCurrentPage()) {%>
+						<button onclick="location.href='<%=contextPath%>/searchMember.admin?currentPage=<%=i%>&barNum=<%=barNum%>&barSearch=<%=barSearch%>'"><%=i%></button>
 					<%}else {%>
 						<button disabled><%=i%></button>
 					<%} %>
 				<%} %>
 				
 				<!-- 다음 버튼 -->
-				<%if(searchPi.getCurrentPage() != searchPi.getMaxPage()){%>
-					<button onclick="location.href='<%=contextPath%>/member.admin?currentPage=<%=searchPi.getCurrentPage()+1%>'">&gt;</button>
+				<%if(pi.getCurrentPage() != pi.getMaxPage()){%>
+					<button onclick="location.href='<%=contextPath%>/searchMember.admin?currentPage=<%=pi.getCurrentPage()+1%>&barNum=<%=barNum%>&barSearch=<%=barSearch%>'">&gt;</button>
 				<%}%>
 				</div>
 			<%} %>
