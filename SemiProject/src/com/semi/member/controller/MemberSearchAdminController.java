@@ -32,22 +32,6 @@ public class MemberSearchAdminController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		request.setCharacterEncoding("UTF-8");
-		
-		//select의 value값
-		int num = Integer.parseInt(request.getParameter("ms_select"));
-		
-		//입력한 검색값
-		String search = request.getParameter("memberSearch");
 		
 		int listCount; //총 게시글 개수
 		int currentPage; // 현재 페이지
@@ -56,6 +40,29 @@ public class MemberSearchAdminController extends HttpServlet {
 		int maxPage; //마지막 페이지 
 		int startPage; //페이징 바의 시작 수
 		int endPage; // 페이징바의 마지막 수
+		
+		int num = 0;
+		int barNum = 0;
+		
+		//select의 value값
+		if(request.getParameter("ms_select") != null) {
+			num = Integer.parseInt(request.getParameter("ms_select"));
+			barNum = Integer.parseInt(request.getParameter("ms_select"));
+		}else { //키워드 검색 시 페이징바 처리에 필요한 num
+			num = Integer.parseInt(request.getParameter("barNum"));
+			barNum = Integer.parseInt(request.getParameter("barNum"));
+		}
+
+		String search = "";
+		String barSearch = "";
+		//입력한 검색값
+		if(request.getParameter("memberSearch") != null) {
+			search = request.getParameter("memberSearch");
+			barSearch = request.getParameter("memberSearch");
+		}else {
+			search = request.getParameter("barSearch");
+			barSearch = request.getParameter("barSearch");
+		}
 		
 		listCount = new MemberService().searchAdminCount(num,search);
 		
@@ -74,7 +81,6 @@ public class MemberSearchAdminController extends HttpServlet {
 		
 		PageInfo pi = new PageInfo(listCount,currentPage,pageLimit,boardLimit,maxPage,startPage,endPage);
 		
-		request.setAttribute("pi", pi);
 		
 		//select의 value값에 따른 반환값을 list에 담아주기
 		ArrayList<Member> list = new ArrayList<>();
@@ -82,13 +88,28 @@ public class MemberSearchAdminController extends HttpServlet {
 		list = new MemberService().searchIdAdmin(search,pi,num);
 		
 		if(list.isEmpty()) {
-			request.getSession().setAttribute("alertMsg", "다시 입력해주세요");
+			request.getSession().setAttribute("alertMsg", "해당하는 회원이 없습니다.");
 			response.sendRedirect(request.getContextPath()+"/member.admin?currentPage=1");
 			
 		}else {
 			request.setAttribute("list", list);
-			request.getRequestDispatcher("/member.admin?currentPage=1").forward(request, response);
+			request.setAttribute("pi", pi);
+			request.setAttribute("barNum", barNum);
+			request.setAttribute("barSearch", barSearch);
+			request.getRequestDispatcher("/member.admin").forward(request, response);
 		}
+		
+		
+		
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		request.setCharacterEncoding("UTF-8");
+		
 	}
 
 }

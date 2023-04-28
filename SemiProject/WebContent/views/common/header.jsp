@@ -301,19 +301,17 @@
                     <a href="<%=contextPath %>/enrollForm.me" id="mem_btn">회원가입</a>
                 </div>
              
-                <%}else if(loginUser != null){ %>
+             	<%}else if(loginUser.getMemberId().equals("admin")) {%>
+                    <script>
+					    location.href="<%=contextPath%>/member.admin?currentPage=1";
+                    </script>
+                <%}else { %>
                 <div id="login_mem" style="background-color: blueviolet;">
                     <a href="<%=contextPath %>/myPage.me" id="login_btn">마이페이지</a>
                     <a href="" id="mem_btn">장바구니</a>
                     <a href="<%=contextPath %>/logout.me" id="mem_btn">로그아웃</a>
                 </div>
                  <%} %>
-                 <!--  <%//}else{ %>
-	                <div id="login_mem">
-	                    <a href="" id="login_btn">관리페이지</a>
-	                    <a href="<%//=contextPath %>/logout.me" id="mem_btn">로그아웃</a>
-	                </div>
-               <%//} %>  -->
                
             </div>
             <div id="header_2">
