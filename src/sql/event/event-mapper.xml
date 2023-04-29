@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<entry key="upPoint">
+		UPDATE MEMBER
+		SET MEMBER_POINT =(MEMBER_POINT + ?)
+		WHERE MEMBER_NO = ?
+	</entry>
+	
+	<!-- 출석체크 도장 갯수 업데이트-->
+	<entry key="">
+	
+	</entry>
+</properties>
