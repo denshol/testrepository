@@ -11,6 +11,15 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 	<link rel="stylesheet" href="resources/adminPage_files/cssFolder/admin_main.css">
 	<link rel="stylesheet" href="resources/adminPage_files/cssFolder/admin_order.css">
+	<style>
+	#ms_img{
+
+	     background: url("resources/adminPage_files/iconFolder/search_icon.png") no-repeat center;
+	     background-size:;
+		 background-color: #3498D8;
+	
+			}
+	</style>
 </head>
 <body>
 	<div class="wrap">

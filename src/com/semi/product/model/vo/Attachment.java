@@ -16,13 +16,13 @@ public class Attachment {
 		super();
 	}
 	//공지사항 상세조회
-		public Attachment(int attachmentId, String attachmentName, String attachmentChange, String attachmentPath) {
-			super();
-			this.attachmentId = attachmentId;
-			this.attachmentName = attachmentName;
-			this.attachmentChange = attachmentChange;
-			this.attachmentPath = attachmentPath;
-		}
+	public Attachment(int attachmentId, String attachmentName, String attachmentChange, String attachmentPath) {
+		super();
+		this.attachmentId = attachmentId;
+		this.attachmentName = attachmentName;
+		this.attachmentChange = attachmentChange;
+		this.attachmentPath = attachmentPath;
+	}
 	public Attachment(int attachmentId, int boardNo, String attachmentName, String attachmentPath, String attachmentChange,
 			Date updateDate) {
 		super();

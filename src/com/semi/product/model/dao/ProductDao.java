@@ -94,6 +94,9 @@ public class ProductDao {
 		}
 		
 		return result;
+		
+		
+		
 	}
 
 	//첨부파일 등록

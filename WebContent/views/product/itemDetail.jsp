@@ -501,11 +501,11 @@
 						          <div class="modal-footer">
 						            <button type="reset" id="modal_btn_no" data-dismiss="modal">취소</button>
 						            <button onclick="insertQ()" id="modal_btn" data-dismiss="modal">등록</button>
-						          </div>
-						          
-						        </div>
-						      </div>
-						    </div>
+						   </div> 
+                
+                </div>
+            </div>
+        </div>
 						    <%} %>
 						   </div> 
 <pre>

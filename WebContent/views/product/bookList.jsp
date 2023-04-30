@@ -216,6 +216,11 @@
             border: 1px solid rgb(148, 146, 146);
             background-color: none;
         }
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> origin/master
         
         /*상품 없을시========================*/
 		    #none_div{

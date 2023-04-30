@@ -206,3 +206,5 @@ public class Member {
 				+ ", attendance=" + attendance + ", status=" + status + "]";
 	}
 }
+>>>>>>> 3873b6c695f5c7fca6f249ff83c5e079ae12780d
+>>>>>>> origin/master

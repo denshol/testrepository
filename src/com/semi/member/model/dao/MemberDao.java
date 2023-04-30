@@ -169,6 +169,10 @@ public class MemberDao {
 			
 			
 			rset = pstmt.executeQuery();
+
+			if(rset.next()) {
+				selectId = rset.getString("MEMBER_ID");
+
 			System.out.println(rset.next());
 			while(rset.next()) {
 				selectId = rset.getString("MEMBER_ID");
@@ -182,7 +186,7 @@ public class MemberDao {
 			e.printStackTrace();
 		}
 		System.out.println(selectId);
-		
+
 		
 		
 		return selectId;
@@ -221,6 +225,13 @@ public class MemberDao {
 		return srcPwdM;
 	}
 
+	public ArrayList<Payment> selectShoppingList(Connection conn) {
+		ArrayList<Payment> list = new ArrayList<>();
+		ResultSet rset = null;
+		Statement stmt = null;
+		
+		String sql = prop.getProperty("selectShoppingList");
+
 	public int selMemberAdminCount(Connection conn) {
 		
 		int listCount = 0;
@@ -231,7 +242,26 @@ public class MemberDao {
 		try {
 			stmt = conn.createStatement();
 			rset = stmt.executeQuery(sql);
-			
+			while(rset.next()) {
+				list.add(new Payment(rset.getInt("ORDER_NO"),
+									 rset.getDate("CREATED_AT"),
+									 rset.getString("MEMBER_NAME"),
+									 rset.getString("PRODUCT_NAME")));
+			}
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(stmt);
+		}
+		
+		
+		return list;
+	}
+
+	//회원 관리 조회
+	public ArrayList<Member> selectMemberAdmin(Connection conn) {
 			if(rset.next()) {
 				listCount = rset.getInt("COUNT");
 			}
@@ -329,7 +359,7 @@ public class MemberDao {
 			pstmt.setInt(2, endRow);
 			
 			rset = pstmt.executeQuery();
-			
+
 			while(rset.next()) {
 				list.add(new Member(rset.getInt("MEMBER_NO")
 								   ,rset.getInt("GRADE")
@@ -502,6 +532,281 @@ public class MemberDao {
 		return m;
 	}
 	
+	
+	//아이디로 검색
+	public ArrayList<Member> searchIdAdmin(Connection conn, String search) {
+		
+		ArrayList<Member> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("searchIdAdmin");
+		
+		try {
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, search);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				list.add(new Member(rset.getInt("MEMBER_NO")
+								   ,rset.getInt("GRADE")
+								   ,rset.getInt("MEMBER_ROLE")
+								   ,rset.getString("MEMBER_ID")
+								   ,rset.getString("MEMBER_PWD")
+								   ,rset.getString("MEMBER_NAME")
+								   ,rset.getString("MEMBER_BIRTH")
+								   ,rset.getString("GENDER")
+								   ,rset.getString("PHONE")
+								   ,rset.getString("EMAIL")
+								   ,rset.getString("ADDRESS")
+								   ,rset.getInt("MEMBER_POINT")
+								   ,rset.getDate("ENROLL_DATE")
+								   ,rset.getDate("MODIFY_DATE")
+								   ,rset.getInt("ATTENDANCE")
+								   ,rset.getString("STATUS")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return list;
+	}
+
+	//이름으로 검색
+	public ArrayList<Member> searchNameAdmin(Connection conn, String search) {
+		
+		ArrayList<Member> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("searchNameAdmin");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, search);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				list.add(new Member(rset.getInt("MEMBER_NO")
+								   ,rset.getInt("GRADE")
+								   ,rset.getInt("MEMBER_ROLE")
+								   ,rset.getString("MEMBER_ID")
+								   ,rset.getString("MEMBER_PWD")
+								   ,rset.getString("MEMBER_NAME")
+								   ,rset.getString("MEMBER_BIRTH")
+								   ,rset.getString("GENDER")
+								   ,rset.getString("PHONE")
+								   ,rset.getString("EMAIL")
+								   ,rset.getString("ADDRESS")
+								   ,rset.getInt("MEMBER_POINT")
+								   ,rset.getDate("ENROLL_DATE")
+								   ,rset.getDate("MODIFY_DATE")
+								   ,rset.getInt("ATTENDANCE")
+								   ,rset.getString("STATUS")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return list;
+	}
+
+	//생년월일로 검색
+	public ArrayList<Member> searchBirthAdmin(Connection conn, String search) {
+		
+		ArrayList<Member> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("searchBirthAdmin");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, search);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				list.add(new Member(rset.getInt("MEMBER_NO")
+								   ,rset.getInt("GRADE")
+								   ,rset.getInt("MEMBER_ROLE")
+								   ,rset.getString("MEMBER_ID")
+								   ,rset.getString("MEMBER_PWD")
+								   ,rset.getString("MEMBER_NAME")
+								   ,rset.getString("MEMBER_BIRTH")
+								   ,rset.getString("GENDER")
+								   ,rset.getString("PHONE")
+								   ,rset.getString("EMAIL")
+								   ,rset.getString("ADDRESS")
+								   ,rset.getInt("MEMBER_POINT")
+								   ,rset.getDate("ENROLL_DATE")
+								   ,rset.getDate("MODIFY_DATE")
+								   ,rset.getInt("ATTENDANCE")
+								   ,rset.getString("STATUS")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return list;
+	}
+
+	//전화번호로 검색
+	public ArrayList<Member> searchPhoneAdmin(Connection conn, String search) {
+		
+		ArrayList<Member> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("searchPhoneAdmin");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, search);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				list.add(new Member(rset.getInt("MEMBER_NO")
+								   ,rset.getInt("GRADE")
+								   ,rset.getInt("MEMBER_ROLE")
+								   ,rset.getString("MEMBER_ID")
+								   ,rset.getString("MEMBER_PWD")
+								   ,rset.getString("MEMBER_NAME")
+								   ,rset.getString("MEMBER_BIRTH")
+								   ,rset.getString("GENDER")
+								   ,rset.getString("PHONE")
+								   ,rset.getString("EMAIL")
+								   ,rset.getString("ADDRESS")
+								   ,rset.getInt("MEMBER_POINT")
+								   ,rset.getDate("ENROLL_DATE")
+								   ,rset.getDate("MODIFY_DATE")
+								   ,rset.getInt("ATTENDANCE")
+								   ,rset.getString("STATUS")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return list;
+	}
+
+	//이메일로 검색
+	public ArrayList<Member> searchEmailAdmin(Connection conn, String search) {
+		
+		ArrayList<Member> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("searchEmailAdmin");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, search);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				list.add(new Member(rset.getInt("MEMBER_NO")
+								   ,rset.getInt("GRADE")
+								   ,rset.getInt("MEMBER_ROLE")
+								   ,rset.getString("MEMBER_ID")
+								   ,rset.getString("MEMBER_PWD")
+								   ,rset.getString("MEMBER_NAME")
+								   ,rset.getString("MEMBER_BIRTH")
+								   ,rset.getString("GENDER")
+								   ,rset.getString("PHONE")
+								   ,rset.getString("EMAIL")
+								   ,rset.getString("ADDRESS")
+								   ,rset.getInt("MEMBER_POINT")
+								   ,rset.getDate("ENROLL_DATE")
+								   ,rset.getDate("MODIFY_DATE")
+								   ,rset.getInt("ATTENDANCE")
+								   ,rset.getString("STATUS")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return list;
+	}
+
+	//주소로 검색
+	public ArrayList<Member> searchAddressAdmin(Connection conn, String search) {
+		
+		ArrayList<Member> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("searchAddressAdmin");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, search);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				list.add(new Member(rset.getInt("MEMBER_NO")
+								   ,rset.getInt("GRADE")
+								   ,rset.getInt("MEMBER_ROLE")
+								   ,rset.getString("MEMBER_ID")
+								   ,rset.getString("MEMBER_PWD")
+								   ,rset.getString("MEMBER_NAME")
+								   ,rset.getString("MEMBER_BIRTH")
+								   ,rset.getString("GENDER")
+								   ,rset.getString("PHONE")
+								   ,rset.getString("EMAIL")
+								   ,rset.getString("ADDRESS")
+								   ,rset.getInt("MEMBER_POINT")
+								   ,rset.getDate("ENROLL_DATE")
+								   ,rset.getDate("MODIFY_DATE")
+								   ,rset.getInt("ATTENDANCE")
+								   ,rset.getString("STATUS")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return list;
+	}
+
+	//회원등급으로 검색
+	public ArrayList<Member> searchGradeAdmin(Connection conn, String search) {
+		
+		ArrayList<Member> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("searchGradeAdmin");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, search);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				list.add(new Member(rset.getInt("MEMBER_NO")
+								   ,rset.getInt("GRADE")
+								   ,rset.getInt("MEMBER_ROLE")
+								   ,rset.getString("MEMBER_ID")
+								   ,rset.getString("MEMBER_PWD")
+								   ,rset.getString("MEMBER_NAME")
+								   ,rset.getString("MEMBER_BIRTH")
+								   ,rset.getString("GENDER")
+								   ,rset.getString("PHONE")
+								   ,rset.getString("EMAIL")
+								   ,rset.getString("ADDRESS")
+								   ,rset.getInt("MEMBER_POINT")
+								   ,rset.getDate("ENROLL_DATE")
+								   ,rset.getDate("MODIFY_DATE")
+								   ,rset.getInt("ATTENDANCE")
+								   ,rset.getString("STATUS")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return list;
+	}
 	
 
 	//회원 수정

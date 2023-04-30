@@ -66,6 +66,105 @@
         AND PHONE = ?
 	</entry>
 	
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+	<entry key="selectShoppingList">
+		SELECT ORDER_NO, CREATED_AT, MEMBER_NAME,  PRODUCT_NAME
+		FROM MEMBER M
+		JOIN PAYMENT PM USING (MEMBER_NO)
+		JOIN PRODUCT PR ON (PM.PRODUCT_NO = PR.PRODUCT_NO)
+		WHERE M.STATUS = 'Y'
+		ORDER BY CREATED_AT
+	</entry>
+	
+	<!-- 회원관리 조회 -->
+<entry key="selectAdminMember">
+	SELECT *
+	FROM MEMBER
+	ORDER BY MEMBER_NO DESC
+</entry>
+
+<!-- 회원 상세조회 -->
+<entry key="detailMemberAdmin">
+	SELECT *
+	FROM MEMBER
+	WHERE MEMBER_NO = ?
+	ORDER BY ENROLL_DATE DESC
+</entry>
+
+<!-- 검색 카테고리 -->
+<entry key="searchIdAdmin">
+	SELECT *
+	FROM MEMBER
+	WHERE MEMBER_ID = ?
+	ORDER BY ENROLL_DATE DESC
+</entry>
+
+<entry key="searchNameAdmin">
+	SELECT *
+	FROM MEMBER
+	WHERE MEMBER_NAME = ?
+	ORDER BY ENROLL_DATE DESC
+</entry>
+
+<entry key="searchBirthAdmin">
+	SELECT *
+	FROM MEMBER
+	WHERE MEMBER_BIRTH LIKE '%'||?||'%'
+	
+	ORDER BY ENROLL_DATE DESC	
+</entry>
+
+<entry key="searchPhoneAdmin">
+	SELECT *
+	FROM MEMBER
+	WHERE PHONE LIKE'%'||?||'%'
+	ORDER BY ENROLL_DATE DESC
+</entry>
+<entry key="searchEmailAdmin">
+	SELECT *
+	FROM MEMBER
+	WHERE EMAIL LIKE'%'||?||'%'
+	ORDER BY ENROLL_DATE DESC
+</entry>
+
+<entry key="searchAddressAdmin">
+	SELECT *
+	FROM MEMBER
+	WHERE ADDRESS LIKE'%'||?||'%'
+	ORDER BY ENROLL_DATE DESC
+</entry>
+
+<entry key="searchGradeAdmin">
+	SELECT *
+	FROM MEMBER
+	WHERE GRADE = ?
+	ORDER BY ENROLL_DATE DESC
+</entry>
+
+<entry key="updateMemberAdmin">
+	UPDATE MEMBER
+	SET MEMBER_ID = ?
+	   ,MEMBER_PWD = ?
+	   ,MEMBER_NAME = ?
+	   ,MEMBER_BIRTH = ?
+	   ,GENDER = ?
+	   ,PHONE = ?
+	   ,EMAIL = ?
+	   ,ADDRESS = ?
+	   ,MODIFY_DATE = SYSDATE
+	WHERE MEMBER_NO = ?
+</entry>
+
+<entry key="deleteMemberAdmin">
+	UPDATE MEMBER
+	SET STATUS = 'N'
+	WHERE MEMBER_NO = ?
+	AND STATUS = 'Y'
+</entry>
+=======
+>>>>>>> origin/master
 	<!-- 총 회원 수 -->
 	<entry key="selMemberAdminCount">
 		SELECT COUNT(*) COUNT

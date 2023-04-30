@@ -379,5 +379,28 @@
                 </div>
             </div>
         </div>
+  <script>
+  $(document).ready(function(){
+		 $("#header_1")
+			.css('opacity',0)
+			.slideDown(500,'swing')
+			.animate(
+			 {opacity : 1}
+			,{queue : false , duration : 700}
+			,'easy-In');
+			
+			
+		
+		
+		$("#header_2")
+		   	.css('opacity',0)
+			.slideDown(700 , 'swing')
+			.animate(
+			{ opacity : 1 }
+			,{ queue : false , duration : 1000}
+			,'easeOut');
+  });
+  
+  </script>
 </body>
 </html>
